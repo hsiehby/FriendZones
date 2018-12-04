@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 
 public class ContactListAdaptor extends ArrayAdapter<String> {
     private final Activity context;
@@ -24,6 +27,16 @@ public class ContactListAdaptor extends ArrayAdapter<String> {
         TextView nameView = rowView.findViewById(R.id.name);
         TextView timeZoneView = rowView.findViewById(R.id.time_zone);
         TextView phoneNumberView = rowView.findViewById(R.id.phone);
+
+        // set time
+        TextView currentTimeView = rowView.findViewById(R.id.current_converted_time);
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("z:YYYY:MM:dd:HH:mm:ss");
+
+        long convertedTime = calendar.getTimeInMillis() + 3600000 * contacts[position].getTimeZone();
+        String strDate = mdformat.format(convertedTime);
+        currentTimeView.setText(strDate);
+
         nameView.setText(contacts[position].getName());
         timeZoneView.setText(String.format("Time Zone: %d", contacts[position].getTimeZone()));
         phoneNumberView.setText(contacts[position].getPhone());

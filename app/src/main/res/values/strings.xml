@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">FriendZones v0.0</string>
+    <string-array name="time_zone_entries">
+        <item>UTC -11</item>
+        <item>UTC -10</item>
+        <item>UTC -9</item>
+        <item>UTC -8</item>
+        <item>UTC -7</item>
+        <item>UTC -6</item>
+        <item>UTC -5</item>
+        <item>UTC -4</item>
+        <item>UTC -3</item>
+        <item>UTC -2</item>
+        <item>UTC -1</item>
+        <item>UTC 0</item>
+        <item>UTC +1</item>
+        <item>UTC +2</item>
+        <item>UTC +3</item>
+        <item>UTC +4</item>
+        <item>UTC +5</item>
+        <item>UTC +6</item>
+        <item>UTC +7</item>
+        <item>UTC +8</item>
+        <item>UTC +9</item>
+        <item>UTC +10</item>
+        <item>UTC +11</item>
+        <item>UTC +12</item>
+    </string-array>
 </resources>
