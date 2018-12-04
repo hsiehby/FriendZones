@@ -3,20 +3,36 @@ package zones.com.friendzonesv00;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     ListView list;
-    String[] names = {"Eric", "Tom"};
-    String[] phones = {"(217) 819-6132", "(217) 219-9302"};
-    Integer[] timeZones = {5, -8};
+    //Contact[] contacts;
+    //String[] names = null;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ContactListAdaptor adaptor = new ContactListAdaptor(MainActivity.this, names, phones, timeZones);
+
+        // create contacts
+        ContactData.add("Eric", "(217) 819-6132", -5);
+        ContactData.add("John", "(237) 829-3332", 3);
+        /*Contact contact1 =  new Contact("Eric", "(217) 819-6132", -5);
+        Contact contact2 = new Contact("John", "(237) 829-3332", 3);
+        contacts = new Contact[] {contact1, contact2};
+        */
+
+        /*
+        // create names array required by the Adaptor constructor
+        names = new String[contacts.length];
+        for (int i = 0; i < contacts.length; i++) {
+            names[i] = contacts[i].getName();
+        }
+        */
+        // initiate Adaptor
+        ContactListAdaptor adaptor = new ContactListAdaptor(MainActivity.this, ContactData.contacts, ContactData.names);
         list = findViewById(R.id.list);
         list.setAdapter(adaptor);
 
