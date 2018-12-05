@@ -14,6 +14,7 @@ public class NewContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_contact);
+        //getActionBar().setTitle("Create Contact");
     }
 
     public void onClickSave(View view) {

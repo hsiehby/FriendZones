@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,29 +27,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Add Action Bar
-        Toolbar myToolbar = findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-
         //
         final Handler handler = new Handler();
         handler.post(new Runnable() {
             @Override
             public void run() {
                 Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat mdformat = new SimpleDateFormat("z:YYYY:MM:dd:HH:mm:ss");
+                SimpleDateFormat mdformat = new SimpleDateFormat("z YYYY MM/dd HH:mm");
                 String strDate = mdformat.format(calendar.getTime());
                 TextView currentTimeView = findViewById(R.id.current_local_time);
                 currentTimeView.setText(strDate);
 
-                // TEST
                 // initiate Adaptor
                 ContactListAdaptor adaptor = new ContactListAdaptor(MainActivity.this, ContactData.contacts, ContactData.names);
                 list = findViewById(R.id.list);
                 list.setAdapter(adaptor);
 
-                handler.postDelayed(this, 1000);
+                handler.postDelayed(this, 60000);
             }
         });
 
@@ -90,9 +85,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /*
     public void onClickCall(View view) {
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + "+1 2178196132"));
+        intent.setData(Uri.parse("tel:" + ContactData.contacts[view.getId()].getPhone()));
+        Log.d("onClickCall", Integer.toString(view.getId()));
         startActivity(intent);
     }
+    */
 }
