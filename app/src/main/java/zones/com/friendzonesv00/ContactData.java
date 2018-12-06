@@ -4,9 +4,9 @@ public class ContactData {
     static Contact[] contacts = new Contact[] {};
     static String[] names = new String[] {};
 
-    public static void add(String name, String phone, int timeZone) {
+    public static void add(String name, String phone, int timeZone, Time bedtime, Time getUpTime) {
         // Create new Contact
-        Contact newContact = new Contact(name, phone, timeZone);
+        Contact newContact = new Contact(name, phone, timeZone, bedtime, getUpTime);
 
         // Update contact data
         Contact[] newContacts = new Contact[contacts.length + 1];

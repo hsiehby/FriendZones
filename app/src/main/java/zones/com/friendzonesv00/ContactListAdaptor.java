@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
@@ -28,7 +30,6 @@ public class ContactListAdaptor extends ArrayAdapter<String> {
             v.getContext().startActivity(intent);
         }
     };
-
 
     public ContactListAdaptor(Activity context, Contact[] contacts, String[] names) {
         // call super
@@ -50,7 +51,6 @@ public class ContactListAdaptor extends ArrayAdapter<String> {
 
         // set time
         TextView currentTimeView = rowView.findViewById(R.id.current_converted_time);
-        Calendar calendar = Calendar.getInstance();
         SimpleDateFormat mdformat = new SimpleDateFormat("z YYYY MM/dd HH:mm");
 
         // get GMT (+0:00) time for conversion purpose
@@ -74,10 +74,10 @@ public class ContactListAdaptor extends ArrayAdapter<String> {
         // Debug : Need to use HOUR_OF_DAY instead of HOUR, so it returns military time.
         Log.e("XYZIII", ((Integer) convertedTimeAsCalendar.get(Calendar.HOUR_OF_DAY)).toString());
         // Testing setting background color for a card
-        if (convertedTimeAsCalendar.get(Calendar.HOUR_OF_DAY) < 23 && convertedTimeAsCalendar.get(Calendar.HOUR_OF_DAY) > 9) {
-            singleCard.setCardBackgroundColor(Color.GREEN);
+        if (isAvailable(convertedTimeAsCalendar, contacts[position].getBedTime(), contacts[position].getGetUpTime())) {
+            singleCard.setCardBackgroundColor(ContextCompat.getColor(context, R.color.green));
         } else {
-            singleCard.setCardBackgroundColor(Color.RED);
+            singleCard.setCardBackgroundColor(ContextCompat.getColor(context, R.color.red));
         }
 
         return rowView;
@@ -114,4 +114,18 @@ public class ContactListAdaptor extends ArrayAdapter<String> {
     }
     */
 
+    private static boolean isAvailable(Calendar convertedTime, Time bedtime, Time getUpTime) {
+        if (bedtime.hour >= 0 && bedtime.hour <= 6) {
+            bedtime.hour += 24;
+        }
+        int convertedTimeInMinutes = 60 * convertedTime.get(Calendar.HOUR_OF_DAY) + convertedTime.get(Calendar.MINUTE);
+        int bedtimeInMinutes = 60 * bedtime.hour + bedtime.minute;
+        int getUpTimeInMinutes = 60 * getUpTime.hour + getUpTime.minute;
+
+        if (convertedTimeInMinutes < bedtimeInMinutes && convertedTimeInMinutes > getUpTimeInMinutes) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

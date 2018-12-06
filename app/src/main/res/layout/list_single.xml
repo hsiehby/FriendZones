@@ -22,7 +22,8 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textAppearance="@color/colorPrimaryDark"
-                android:textSize="28sp"/>
+                android:textSize="28sp"
+                android:fontFamily="@font/merriweatherregular"/>
             <TextView
                 android:id="@+id/time_zone"
                 android:layout_width="match_parent"
@@ -39,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text=""/>
             <ImageButton
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="CALL"
