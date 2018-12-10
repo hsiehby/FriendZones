@@ -22,11 +22,11 @@ public class MainActivity extends AppCompatActivity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                Calendar calendar = Calendar.getInstance();
-                SimpleDateFormat mdformat = new SimpleDateFormat("z YYYY MM/dd HH:mm");
-                String strDate = mdformat.format(calendar.getTime());
-                TextView currentTimeView = findViewById(R.id.current_local_time);
-                currentTimeView.setText(strDate);
+                //Calendar calendar = Calendar.getInstance();
+                //SimpleDateFormat mdformat = new SimpleDateFormat("z YYYY MM/dd HH:mm");
+                //String strDate = mdformat.format(calendar.getTime());
+                //TextView currentTimeView = findViewById(R.id.current_local_time);
+                //currentTimeView.setText(strDate);
 
                 // initiate Adaptor
                 ContactListAdaptor adaptor = new ContactListAdaptor(MainActivity.this, ContactData.contacts, ContactData.names);
@@ -74,13 +74,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewContactActivity.class);
         startActivity(intent);
     }
-
-    /*
-    public void onClickCall(View view) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:" + ContactData.contacts[view.getId()].getPhone()));
-        Log.d("onClickCall", Integer.toString(view.getId()));
-        startActivity(intent);
-    }
-    */
 }
