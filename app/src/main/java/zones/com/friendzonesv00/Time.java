@@ -43,12 +43,25 @@ public class Time {
         if (isAvailable(currentTime, bedtime, getUpTime)) {
             int minutesUntilSleep = bedtime.getInMinutes() - currentTimeInMinutes;
             Time timeUntilSleep = new Time(minutesUntilSleep / 60, minutesUntilSleep % 60);
-            return String.format("%d:%2d before his/her usual bedtime", timeUntilSleep.hour, timeUntilSleep.minute);
+            return String.format("%d:%02d before the usual bedtime", timeUntilSleep.hour, timeUntilSleep.minute);
         }
         else {
-            int minutesUntilGetUp = getUpTime.getInMinutes() - currentTimeInMinutes;
+            int getUpTimeInMinutes = getUpTime.getInMinutes();
+            if (getUpTimeInMinutes < currentTimeInMinutes) {
+                getUpTimeInMinutes += 1440;
+            }
+            int minutesUntilGetUp = getUpTimeInMinutes - currentTimeInMinutes;
             Time timeUntilGetUp = new Time(minutesUntilGetUp / 60, minutesUntilGetUp % 60);
-            return String.format("%d:%2d before his/her usual get up time", timeUntilGetUp.hour, timeUntilGetUp.minute);
+            return String.format("%d:%02d before the usual get-up time", timeUntilGetUp.hour, timeUntilGetUp.minute);
         }
+    }
+
+    public static long getTimeUntilGetUpInMillis(Calendar currentTime, Time getUpTime) {
+        int currentTimeInMinutes = currentTime.get(Calendar.HOUR_OF_DAY) * 60 + currentTime.get(Calendar.MINUTE);
+        int getUpTimeInMinutes = getUpTime.getInMinutes();
+        if (getUpTimeInMinutes < currentTimeInMinutes) {
+            getUpTimeInMinutes += 1440;
+        }
+        return 60000 * (getUpTimeInMinutes - currentTimeInMinutes);
     }
 }

@@ -3,6 +3,7 @@ package zones.com.friendzonesv00;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.provider.CalendarContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -13,21 +14,22 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class ContactListAdaptor extends ArrayAdapter<String> {
     private final Activity context;
-    private final Contact[] contacts;
 
-    public ContactListAdaptor(Activity context, Contact[] contacts, String[] names) {
+    public ContactListAdaptor(Activity context, String[] names) {
         // call super
         super(context, R.layout.list_single, names);
         this.context = context;
-        this.contacts = contacts;
     }
     public View getView(int position, View view, ViewGroup parent) {
+        final Contact theContact = ContactData.contacts[position];
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.list_single, null, true);
         CardView singleCard = rowView.findViewById(R.id.single_card);
@@ -50,28 +52,25 @@ public class ContactListAdaptor extends ArrayAdapter<String> {
 
         // set callButton
         ImageButton callButton = rowView.findViewById(R.id.call_button);
-        callButton.setTag(position); // position used by callButtonClickListener to retrieve phone number
         callButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = (Integer) v.getTag();
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel:" + ContactData.contacts[position].getPhone()));
+                intent.setData(Uri.parse("tel:" + theContact.getPhone()));
                 v.getContext().startActivity(intent);
             }
         });
 
         // set SMSButton
         ImageButton messageButton = rowView.findViewById(R.id.message_button);
-        messageButton.setTag(position);
         messageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = (Integer) v.getTag();
-                Intent sendIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + ContactData.contacts[position].getPhone()));
+                Intent sendIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + theContact.getPhone()));
                 v.getContext().startActivity(sendIntent);
             }
         });
+
 
         // set time
         TextView currentTimeView = rowView.findViewById(R.id.current_converted_time);
@@ -80,8 +79,8 @@ public class ContactListAdaptor extends ArrayAdapter<String> {
         // get GMT (+0:00) time for conversion purpose
         Calendar GMTTime = Calendar.getInstance();
         GMTTime.add(Calendar.MILLISECOND, -GMTTime.getTimeZone().getOffset(GMTTime.getTimeInMillis()));
-        long convertedTime = GMTTime.getTimeInMillis() + 3600000 * contacts[position].getTimeZone();
-        Calendar currentLocalTime = Calendar.getInstance();
+        long convertedTime = GMTTime.getTimeInMillis() + 3600000 * theContact.getTimeZone();
+        final Calendar currentLocalTime = Calendar.getInstance();
         currentLocalTime.setTimeInMillis(convertedTime);
 
 
@@ -96,7 +95,7 @@ public class ContactListAdaptor extends ArrayAdapter<String> {
 
 
         // display name, timeZone, and phone number
-        nameView.setText(contacts[position].getName());
+        nameView.setText(theContact.getName());
         /* NO NEED TO DISPLAY THESE
         timeZoneView.setText(String.format("Time Zone: %d", contacts[position].getTimeZone()));
         phoneNumberView.setText(contacts[position].getPhone());
@@ -104,12 +103,33 @@ public class ContactListAdaptor extends ArrayAdapter<String> {
 
         // set status
         TextView statusView = rowView.findViewById(R.id.status);
-        statusView.setText(Time.getStatus(currentLocalTime, contacts[position].getBedTime(), contacts[position].getGetUpTime()));
+        statusView.setText(Time.getStatus(currentLocalTime, theContact.getBedTime(), theContact.getGetUpTime()));
+
+        // set reminderButton
+
+        ImageButton reminderButton = rowView.findViewById(R.id.reminder_button);
+        reminderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!Time.isAvailable(currentLocalTime, theContact.getBedTime(), theContact.getGetUpTime())) {
+                    Intent reminderIntent = new Intent(Intent.ACTION_EDIT);
+                    reminderIntent.setType("vnd.android.cursor.item/event");
+                    long startTime = Calendar.getInstance().getTimeInMillis() + Time.getTimeUntilGetUpInMillis(currentLocalTime, theContact.getGetUpTime());
+                    reminderIntent.putExtra("beginTime", startTime);
+                    reminderIntent.putExtra("allDay", false);
+                    reminderIntent.putExtra("endTime", startTime + 30 * 60 * 1000);
+                    reminderIntent.putExtra(CalendarContract.Events.TITLE, String.format("Call " + theContact.getName()));
+                    v.getContext().startActivity(reminderIntent);
+                } else {
+                    Toast.makeText(v.getContext(), "The person is currently awake!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         // Debug : Need to use HOUR_OF_DAY instead of HOUR, so it returns military time.
         Log.e("XYZIII", ((Integer) convertedTimeAsCalendar.get(Calendar.HOUR_OF_DAY)).toString());
         // Testing setting background color for a card
-        if (Time.isAvailable(convertedTimeAsCalendar, contacts[position].getBedTime(), contacts[position].getGetUpTime())) {
+        if (Time.isAvailable(convertedTimeAsCalendar, theContact.getBedTime(), theContact.getGetUpTime())) {
             singleCard.setCardBackgroundColor(ContextCompat.getColor(context, R.color.green));
         } else {
             singleCard.setCardBackgroundColor(ContextCompat.getColor(context, R.color.red));
