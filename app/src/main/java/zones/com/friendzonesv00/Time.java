@@ -15,14 +15,6 @@ public class Time {
         return hour * 60 + minute;
     }
 
-    public int getMinute() {
-        return minute;
-    }
-
-    public void setMinute(int minute) {
-        this.minute = minute;
-    }
-
     public static boolean isAvailable(Calendar convertedTime, Time bedtime, Time getUpTime) {
         if (bedtime.hour >= 0 && bedtime.hour <= 6) {
             bedtime.hour += 24;
@@ -63,5 +55,18 @@ public class Time {
             getUpTimeInMinutes += 1440;
         }
         return 60000 * (getUpTimeInMinutes - currentTimeInMinutes);
+    }
+
+    public static Calendar getGMTAsCalendar() {
+        Calendar GMTTime = Calendar.getInstance();
+        GMTTime.add(Calendar.MILLISECOND, -GMTTime.getTimeZone().getOffset(GMTTime.getTimeInMillis()));
+        return GMTTime;
+    }
+
+    public static Calendar getLocalTimeAsCalendar(int localTimeZone) {
+        Calendar localTimeAsCalendar = Calendar.getInstance();
+        long localTimeInMillis = getGMTAsCalendar().getTimeInMillis() + 3600000 * localTimeZone;
+        localTimeAsCalendar.setTimeInMillis(localTimeInMillis);
+        return localTimeAsCalendar;
     }
 }

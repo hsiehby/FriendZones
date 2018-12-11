@@ -1,8 +1,11 @@
 package zones.com.friendzonesv00;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -17,34 +20,32 @@ public class ViewDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_details);
+        // add back button
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        // variables
         int position = getIntent().getIntExtra("position", 0);
         Contact contact = ContactData.contacts[position];
+        Calendar localTimeAsCalendar = Time.getLocalTimeAsCalendar(contact.getTimeZone());
+
         // set name
         TextView nameView = findViewById(R.id.name_detail);
         nameView.setText(contact.getName());
         // set phone
         TextView phoneView = findViewById(R.id.phone_detail);
         phoneView.setText(contact.getPhone());
-
         // set time zone
         TextView timeZoneView = findViewById(R.id.time_zone_detail);
         timeZoneView.setText(String.format("Time Zone: " + contact.getTimeZone()));
         // set current time
         TextView currentTimeView = findViewById(R.id.current_converted_time_detail);
         SimpleDateFormat mdformat = new SimpleDateFormat("z YYYY MM/dd HH:mm");
-        Calendar GMTTime = Calendar.getInstance();
-        GMTTime.add(Calendar.MILLISECOND, -GMTTime.getTimeZone().getOffset(GMTTime.getTimeInMillis()));
-        long convertedTime = GMTTime.getTimeInMillis() + 3600000 * contact.getTimeZone();
-        String strDate = mdformat.format(convertedTime);
+        String strDate = mdformat.format(localTimeAsCalendar.getTimeInMillis());
         currentTimeView.setText(strDate);
-        /////
-        Calendar convertedTimeAsCalendar = Calendar.getInstance();
-        convertedTimeAsCalendar.setTimeInMillis(convertedTime);
-
-
         // set status
         TextView statusView = findViewById(R.id.status_detail);
-        statusView.setText(Time.getStatus(convertedTimeAsCalendar, contact.getBedTime(), contact.getGetUpTime()));
+        statusView.setText(Time.getStatus(localTimeAsCalendar, contact.getBedTime(), contact.getGetUpTime()));
 
         // set remove button
         ImageButton removeButton = findViewById(R.id.removeButton);
@@ -59,5 +60,17 @@ public class ViewDetailsActivity extends AppCompatActivity {
                 v.getContext().startActivity(intent);
             }
         });
+    }
+
+    // handle actionBar events
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+
     }
 }
