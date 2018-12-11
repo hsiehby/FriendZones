@@ -21,4 +21,20 @@ public class ContactData {
             names[i] = contacts[i].getName();
         }
     }
+
+    public static void remove(int position) {
+        Contact[] newContacts = new Contact[contacts.length - 1];
+        String[] newNames = new String[names.length - 1];
+        int oldIndex = 0;
+        for (int i = 0; i < newContacts.length; i++) {
+            if (oldIndex == position) {
+                oldIndex++;
+            }
+            newContacts[i] = contacts[oldIndex];
+            newNames[i] = names[oldIndex];
+            oldIndex++;
+        }
+        contacts = newContacts;
+        names = newNames;
+    }
 }

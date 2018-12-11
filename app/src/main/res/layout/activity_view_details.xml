@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ViewDetailsActivity"
+android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/name_detail"
+        android:paddingTop="20dp"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Name"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+    <TextView
+        android:id="@+id/time_zone_detail"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text=""/>
+    <TextView
+        android:id="@+id/phone_detail"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text=""/>
+    <TextView
+        android:id="@+id/current_converted_time_detail"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text=""/>
+    <TextView
+        android:id="@+id/status_detail"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+    <ImageButton
+        android:id="@+id/removeButton"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/ic_delete"/>
+</LinearLayout>
