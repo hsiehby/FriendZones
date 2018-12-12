@@ -3,7 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574b</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="white">#000000</color>
+    <color name="white">#FFFFFF</color>
     <color name="purple">#000000</color>
     <color name="red">#FF5252</color>
     <color name="green">#1DE9B6</color>
@@ -12,4 +12,5 @@
     <color name="yellow">#faab1a</color>
     <color name="darkPurple">#4f0a3a</color>
     <color name="lightPurple">#720d5d</color>
+    <color name="detail_subtitle_color">#000000</color>
 </resources>

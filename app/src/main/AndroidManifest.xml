@@ -20,12 +20,17 @@
         </activity>
         <activity
             android:name=".NewContactActivity"
-            android:label="Create Contact"
-            android:parentActivityName=".MainActivity"/>
+            android:label="New Contact"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ViewDetailsActivity"
             android:label="Details"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".EditContactActivity"
+            android:label="Edit Contact"
+            android:parentActivityName=".ViewDetailsActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -37,4 +37,9 @@ public class ContactData {
         contacts = newContacts;
         names = newNames;
     }
+
+    public static void edit(int position, String name, String phone, int timeZone, Time bedtime, Time getUpTime) {
+        contacts[position] = new Contact(name, phone, timeZone, bedtime, getUpTime);
+        names[position] = contacts[position].getName();
+    }
 }

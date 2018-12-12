@@ -35,7 +35,7 @@ public class Time {
         if (isAvailable(currentTime, bedtime, getUpTime)) {
             int minutesUntilSleep = bedtime.getInMinutes() - currentTimeInMinutes;
             Time timeUntilSleep = new Time(minutesUntilSleep / 60, minutesUntilSleep % 60);
-            return String.format("%d:%02d before the usual bedtime", timeUntilSleep.hour, timeUntilSleep.minute);
+            return String.format(" %dh %02dm until sleep", timeUntilSleep.hour, timeUntilSleep.minute);
         }
         else {
             int getUpTimeInMinutes = getUpTime.getInMinutes();
@@ -44,7 +44,7 @@ public class Time {
             }
             int minutesUntilGetUp = getUpTimeInMinutes - currentTimeInMinutes;
             Time timeUntilGetUp = new Time(minutesUntilGetUp / 60, minutesUntilGetUp % 60);
-            return String.format("%d:%02d before the usual get-up time", timeUntilGetUp.hour, timeUntilGetUp.minute);
+            return String.format(" %dh %02dm until get up", timeUntilGetUp.hour, timeUntilGetUp.minute);
         }
     }
 

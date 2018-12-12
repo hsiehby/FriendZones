@@ -95,7 +95,7 @@ public class ContactListAdaptor extends ArrayAdapter<String> {
                     reminderIntent.putExtra(CalendarContract.Events.TITLE, String.format("Call " + theContact.getName()));
                     v.getContext().startActivity(reminderIntent);
                 } else {
-                    Toast.makeText(v.getContext(), "The person is currently awake!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), String.format("%s is currently awake!", theContact.getName()), Toast.LENGTH_SHORT).show();
                 }
             }
         });

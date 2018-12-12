@@ -4,62 +4,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewContactActivity"
     android:orientation="vertical"
-    android:theme="@style/AppTheme">
+    tools:context=".EditContactActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:paddingTop="20dp"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Name"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
-        <EditText
-            android:id="@+id/name_text_field"
-            android:layout_width="260dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:hint="e.g. Edward"/>
+        android:orientation="vertical"
+        android:theme="@style/AppTheme">
 
         <TextView
-            android:paddingTop="10dp"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Phone Number"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+            android:paddingTop="20dp"
+            android:text="Name"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
         <EditText
-            android:id="@+id/phone_text_field"
+            android:id="@+id/name_text_field_edit"
             android:layout_width="260dp"
             android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:hint="e.g. +1 217 898-6767"/>
+            android:layout_gravity="center_horizontal" />
+
         <TextView
-            android:paddingTop="10dp"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:text="Phone Number"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+        <EditText
+            android:id="@+id/phone_text_field_edit"
+            android:layout_width="260dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="10dp"
             android:text="Time Zone"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
         <Spinner
-            android:id="@+id/time_zone_text_field"
+            android:id="@+id/time_zone_text_field_edit"
             android:layout_width="260dp"
             android:layout_height="40dp"
             android:layout_gravity="center_horizontal"
             android:entries="@array/time_zone_entries" />
 
         <TextView
-            android:paddingTop="10dp"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:paddingTop="10dp"
             android:text="Bedtime"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <GridLayout
             android:layout_width="260dp"
@@ -68,12 +71,11 @@
             android:columnCount="3">
 
             <EditText
-                android:id="@+id/bedtime_hour_field"
+                android:id="@+id/bedtime_hour_field_edit"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_column="0"
-                android:gravity="center_horizontal"
-                android:hint="hour"/>
+                android:gravity="center_horizontal" />
 
             <TextView
                 android:layout_width="20dp"
@@ -84,21 +86,21 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
             <EditText
-                android:id="@+id/bedtime_minute_field"
+                android:id="@+id/bedtime_minute_field_edit"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_column="2"
-                android:gravity="center_horizontal"
-                android:hint="minute"/>
+                android:gravity="center_horizontal" />
         </GridLayout>
+
 
         <TextView
-            android:paddingTop="10dp"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:paddingTop="10dp"
             android:text="Get-Up Time"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <GridLayout
             android:layout_width="260dp"
@@ -107,12 +109,11 @@
             android:columnCount="3">
 
             <EditText
-                android:id="@+id/get_up_time_hour_field"
+                android:id="@+id/get_up_time_hour_field_edit"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_column="0"
-                android:gravity="center_horizontal"
-                android:hint="hour"/>
+                android:gravity="center_horizontal" />
 
             <TextView
                 android:layout_width="20dp"
@@ -123,14 +124,11 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
             <EditText
-                android:id="@+id/get_up_time_minute_field"
+                android:id="@+id/get_up_time_minute_field_edit"
                 android:layout_width="120dp"
                 android:layout_height="match_parent"
                 android:layout_column="2"
-                android:gravity="center_horizontal"
-                android:hint="minute"/>
+                android:gravity="center_horizontal" />
         </GridLayout>
     </LinearLayout>
-
-
 </android.support.v4.widget.NestedScrollView>

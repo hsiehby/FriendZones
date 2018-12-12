@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,10 +9,11 @@
         android:id="@+id/single_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="15dp"
-        android:layout_marginTop="15dp"
+        app:cardElevation="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
         app:cardCornerRadius="10dp"
         app:contentPadding="15dp">
         <GridLayout
@@ -38,7 +40,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
-                    android:textSize="20sp"/>
+                    android:textSize="24sp"/>
                 <TextView
                     android:id="@+id/status"
                     android:layout_width="match_parent"
@@ -79,7 +81,7 @@
                     android:layout_marginTop="25dp"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:text="MESSAGE"
+                    android:text="REMINDER"
                     android:layout_gravity="center"
                     android:id="@+id/reminder_button"
                     android:background="@drawable/round_button"

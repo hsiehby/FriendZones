@@ -5,6 +5,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ViewDetailsActivity extends AppCompatActivity {
+    int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +27,7 @@ public class ViewDetailsActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         // variables
-        int position = getIntent().getIntExtra("position", 0);
+        position = getIntent().getIntExtra("position", 0);
         Contact contact = ContactData.contacts[position];
         Calendar localTimeAsCalendar = Time.getLocalTimeAsCalendar(contact.getTimeZone());
 
@@ -37,29 +39,28 @@ public class ViewDetailsActivity extends AppCompatActivity {
         phoneView.setText(contact.getPhone());
         // set time zone
         TextView timeZoneView = findViewById(R.id.time_zone_detail);
-        timeZoneView.setText(String.format("Time Zone: " + contact.getTimeZone()));
+        timeZoneView.setText(String.format("UTC %+d", contact.getTimeZone()));
         // set current time
         TextView currentTimeView = findViewById(R.id.current_converted_time_detail);
-        SimpleDateFormat mdformat = new SimpleDateFormat("z YYYY MM/dd HH:mm");
-        String strDate = mdformat.format(localTimeAsCalendar.getTimeInMillis());
+        SimpleDateFormat currentTimeFormat = new SimpleDateFormat("YYYY MM/dd HH:mm");
+        String strDate = currentTimeFormat.format(localTimeAsCalendar.getTimeInMillis());
         currentTimeView.setText(strDate);
         // set status
         TextView statusView = findViewById(R.id.status_detail);
         statusView.setText(Time.getStatus(localTimeAsCalendar, contact.getBedTime(), contact.getGetUpTime()));
+        // set get up time
+        TextView getUpTimeView = findViewById(R.id.get_up_time_detail);
+        getUpTimeView.setText(String.format("%d:%2d", contact.getGetUpTime().hour, contact.getGetUpTime().minute));
+        // set bedtime
+        TextView bedtimeView = findViewById(R.id.bedtime_detail);
+        bedtimeView.setText(String.format("%d:%02d", contact.getBedTime().hour, contact.getBedTime().minute));
+    }
 
-        // set remove button
-        ImageButton removeButton = findViewById(R.id.removeButton);
-        removeButton.setTag(position);
-        removeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ContactData.remove((Integer) v.getTag());
-                Toast toast = Toast.makeText(v.getContext(), "Deleted", Toast.LENGTH_SHORT);
-                toast.show();
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
-                v.getContext().startActivity(intent);
-            }
-        });
+    // create actionBar
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.details_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     // handle actionBar events
@@ -69,8 +70,18 @@ public class ViewDetailsActivity extends AppCompatActivity {
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
+            case R.id.action_delete:
+                ContactData.remove(position);
+                Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
+                this.startActivity(new Intent(this, MainActivity.class));
+                return true;
+            case R.id.action_edit:
+                Intent editIntent = new Intent(this, EditContactActivity.class);
+                editIntent.putExtra("position", position);
+                startActivity(editIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
-
     }
 }

@@ -1,47 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".ViewDetailsActivity"
-android:orientation="vertical">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkPurple"
+    android:backgroundTint="@color/darkPurple"
+    android:orientation="vertical"
+    tools:context=".ViewDetailsActivity">
 
-    <TextView
-        android:id="@+id/name_detail"
-        android:paddingTop="20dp"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Name"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
-    <TextView
-        android:id="@+id/time_zone_detail"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text=""/>
-    <TextView
-        android:id="@+id/phone_detail"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text=""/>
-    <TextView
-        android:id="@+id/current_converted_time_detail"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text=""/>
-    <TextView
-        android:id="@+id/status_detail"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"/>
-    <ImageButton
-        android:id="@+id/removeButton"
-        android:layout_width="260dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_delete"/>
-</LinearLayout>
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="15dp"
+        android:padding="0dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="20dp"
+        app:contentPadding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/merriweatherregular"
+                android:paddingTop="36dp"
+                android:text="Name"
+                android:textColor="#FF000000"
+                android:textSize="48sp" />
+
+            <TextView
+                android:id="@+id/status_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/nunito_semibold"
+                android:text="current status"
+                android:textSize="18sp" />
+
+            <GridLayout
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:columnCount="3"
+                android:rowCount="1">
+
+                <ImageButton
+                    android:id="@+id/call_button"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:background="@drawable/round_button_with_border"
+                    android:src="@drawable/phone"
+                    android:text="CALL"/>
+
+                <ImageButton
+                    android:id="@+id/message_button"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:background="@drawable/round_button_with_border"
+                    android:src="@drawable/ic_message"
+                    android:text="MESSAGE"/>
+
+                <ImageButton
+                    android:id="@+id/reminder_button"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_row="0"
+                    android:layout_column="2"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center"
+                    android:background="@drawable/round_button_with_border"
+                    android:src="@drawable/ic_reminder"
+                    android:text="REMINDER"/>
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="35dp"
+                android:columnCount="2"
+                android:rowCount="5"
+                android:verticalSpacing="2dp"
+                android:horizontalSpacing="2dp"
+                android:stretchMode="columnWidth"
+                android:gravity="left">
+
+                <TextView
+                    android:layout_height="35dp"
+                    android:layout_row="0"
+                    android:layout_column="0"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:text="Phone"
+                    android:textColor="@color/detail_subtitle_color"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_height="35dp"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:text="Time Zone"
+                    android:textColor="@color/detail_subtitle_color"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_height="35dp"
+                    android:layout_row="2"
+                    android:layout_column="0"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:text="Local Time"
+                    android:textColor="@color/detail_subtitle_color"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_height="35dp"
+                    android:layout_row="3"
+                    android:layout_column="0"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:text="Get Up"
+                    android:textColor="@color/detail_subtitle_color"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:layout_height="35dp"
+                    android:layout_row="4"
+                    android:layout_column="0"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:text="Go to Bed"
+                    android:textColor="@color/detail_subtitle_color"
+                    android:textSize="18dp" />
+                <!-- second column starts below -->
+                <TextView
+                    android:id="@+id/phone_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="1"
+                    android:layout_marginLeft="40dp"
+                    android:gravity="center_vertical"
+                    android:text="phone number" />
+
+                <TextView
+                    android:id="@+id/time_zone_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="1"
+                    android:layout_column="1"
+                    android:layout_marginLeft="40dp"
+                    android:gravity="center_vertical"
+                    android:text="time zone" />
+
+                <TextView
+                    android:id="@+id/current_converted_time_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="2"
+                    android:layout_column="1"
+                    android:layout_marginLeft="40dp"
+                    android:gravity="center_vertical"
+                    android:text="current time" />
+
+                <TextView
+                    android:id="@+id/get_up_time_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="3"
+                    android:layout_column="1"
+                    android:layout_marginLeft="40dp"
+                    android:gravity="center_vertical"
+                    android:text="get up time" />
+
+                <TextView
+                    android:id="@+id/bedtime_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="4"
+                    android:layout_column="1"
+                    android:layout_marginLeft="40dp"
+                    android:gravity="center_vertical"
+                    android:text="bedtime" />
+            </GridLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
