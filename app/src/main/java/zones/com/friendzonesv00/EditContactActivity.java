@@ -82,7 +82,9 @@ public class EditContactActivity extends AppCompatActivity {
         Time bedtime = new Time(Integer.parseInt(bedtimeHourField.getText().toString()), Integer.parseInt(bedtimeMinuteField.getText().toString()));
         Time getUpTime = new Time(Integer.parseInt(getUpTimeHourField.getText().toString()), Integer.parseInt(getUpTimeMinuteField.getText().toString()));
         ContactData.edit(position, nameField.getText().toString(), phoneField.getText().toString(), timeZone, bedtime, getUpTime);
-        this.startActivity(new Intent(this, ViewDetailsActivity.class));
+        Intent saveIntent = new Intent(this, ViewDetailsActivity.class);
+        saveIntent.putExtra("position", position);
+        this.startActivity(saveIntent);
         Toast.makeText(this, "Changes saved", Toast.LENGTH_SHORT).show();
     }
 }

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.provider.CalendarContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,9 @@ public class ContactListAdaptor extends ArrayAdapter<String> {
         currentTimeView.setText(new SimpleDateFormat("HH:mm").format(localTimeAsCalendar.getTimeInMillis()));
 
         // set name
+        if (theContact.getName().length() >= 8) {
+            nameView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 260 / theContact.getName().length());
+        }
         nameView.setText(theContact.getName());
 
         // set status

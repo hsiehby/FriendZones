@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         // switch background color according to time
         int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         FrameLayout mainActivityLayout = findViewById(R.id.main_activity);
-        if (currentHour >= 7 && currentHour <= 16) {
+        if (currentHour >= 7 && currentHour <= 24) {
             mainActivityLayout.setBackgroundColor(getResources().getColor(R.color.pink));
         } else {
             mainActivityLayout.setBackgroundColor(getResources().getColor(R.color.darkPurple));
